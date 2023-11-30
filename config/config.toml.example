@@ -1,0 +1,30 @@
+taskList = []
+
+[ciweimao]
+account = ""
+login_token = ""
+
+[sfacg]
+cookie = ""
+userId = ""
+devicetoken = ""
+
+[ciyuanji]
+token = ""
+deviceno = ""
+oaid = ""
+targetmodel = ""
+
+[ssly]
+uid = ""
+
+[mt]
+cookie = ""
+
+[kurobbs]
+token = ""
+userId = ""
+devCode ""
+
+[kanxue]
+cookie = ""
