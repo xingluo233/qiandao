@@ -17,18 +17,14 @@ function getArgumentsValues(args, flag) {
             if (arg.startsWith("-")) {
                 break;
             }
-        values.push(arg);
+            values.push(arg);
         }
     }
     return values;
 }
 
 async function main() {
-    if(getArgumentsValues(args, "-c").length === 0) {
-        if(getArgumentsValues(args, "-t").length !== 0) {
-                console.log("请指定 -c 参数!");
-                return 0;
-        }
+    if (getArgumentsValues(args, "-c").length === 0) {
         let files = [];
         let items = fs.readdirSync(path.join(__dirname, "../config"));
         items.forEach(item => {
@@ -41,69 +37,60 @@ async function main() {
         })
         if (files.length === 0) {
             console.log("配置文件不存在");
-        } else {
-            for (let fl of files) {
-                console.log(`正在运行${path.basename(fl)}`);
-                global.config = TOML.parse(fs.readFileSync(fl));
-                let taskList = config.taskList;
-                if (taskList.length === 0) {
-                    console.log("你还没有填写任务列表");
-                } else {
-                    for (let i of taskList) {
-                        if (!fs.existsSync(path.join(__dirname, `./scripts/${i}.js`))) {
-                            console.log(`【失败】：脚本${i}不存在`);
-                            continue;
-                        }
-                        let res = await import (path.join(__dirname, `./scripts/${i}.js`));
-                        await res.default();
-                    }
-                }
-            }
+            return 0;
         }
-    } else {
-        if(getArgumentsValues(args, "-c").length === 1) {
-            if (!fs.existsSync(path.join(__dirname, `../config/${getArgumentsValues(args, "-c")[0]}.toml`))) {
-                console.log(`【失败】：配置文件${getArgumentsValues(args, "-c")[0]}不存在`);
-                return 0;
+        for (let fl of files) {
+            console.log(`正在运行${path.basename(fl)}`);
+            global.config = TOML.parse(fs.readFileSync(fl));
+            let taskList;
+            if (getArgumentsValues(args, "-t").length !== 0) {
+                taskList = getArgumentsValues(args, "-t")
+            } else {
+                taskList = config.taskList;
             }
-            global.config = TOML.parse(fs.readFileSync(path.join(__dirname, `../config/${getArgumentsValues(args, "-c")[0]}.toml`)));
-            if(getArgumentsValues(args, "-t").length !== 0) {
-                let taskList = getArgumentsValues(args, "-t");
+            if (taskList.length === 0) {
+                console.log("你还没有填写任务列表");
+            } else {
                 for (let i of taskList) {
                     if (!fs.existsSync(path.join(__dirname, `./scripts/${i}.js`))) {
                         console.log(`【失败】：脚本${i}不存在`);
                         continue;
                     }
-                    let res = await import (path.join(__dirname, `./scripts/${i}.js`));
+                    let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
                     await res.default();
                 }
             }
-        } else {
-            let files = [];
-            for(let item of getArgumentsValues(args, "-c")) {
-                let fullPath = path.join(__dirname, `../config/${item}.toml`);
-                if (fs.existsSync(fullPath)) {
-                    files.push(fullPath);
-                } else {
-                    console.log(`【失败】：配置文件${item}不存在`);
-                    continue;
-                }
+        }
+    } else {
+        let files = [];
+        for (let item of getArgumentsValues(args, "-c")) {
+            let fullPath = path.join(__dirname, `../config/${item}.toml`);
+            if (fs.existsSync(fullPath)) {
+                files.push(fullPath);
+            } else {
+                console.log(`【失败】：配置文件${item}不存在`);
+                continue;
             }
-            for (let fl of files) {
-                console.log(`正在运行${path.basename(fl)}`);
-                global.config = TOML.parse(fs.readFileSync(fl));
-                let taskList = config.taskList;
-                if (taskList.length === 0) {
-                    console.log("你还没有填写任务列表");
-                } else {
-                    for (let i of taskList) {
-                        if (!fs.existsSync(path.join(__dirname, `./scripts/${i}.js`))) {
-                            console.log(`【失败】：脚本${i}不存在`);
-                            continue;
-                        }
-                        let res = await import (path.join(__dirname, `./scripts/${i}.js`));
-                        await res.default();
+        }
+        for (let fl of files) {
+            console.log(`正在运行${path.basename(fl)}`);
+            global.config = TOML.parse(fs.readFileSync(fl));
+            let taskList;
+            if (getArgumentsValues(args, "-t").length !== 0) {
+                taskList = getArgumentsValues(args, "-t")
+            } else {
+                taskList = config.taskList;
+            }
+            if (taskList.length === 0) {
+                console.log("你还没有填写任务列表");
+            } else {
+                for (let i of taskList) {
+                    if (!fs.existsSync(path.join(__dirname, `./scripts/${i}.js`))) {
+                        console.log(`【失败】：脚本${i}不存在`);
+                        continue;
                     }
+                    let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
+                    await res.default();
                 }
             }
         }

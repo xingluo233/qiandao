@@ -1,30 +1,38 @@
+# 任务列表，在这里填写脚本文件的名字，填写格式如 ["mt", "kanxue"]
 taskList = []
 
+# 在刺猬猫app里抓包后，可从请求体里获得
 [ciweimao]
 account = ""
 login_token = ""
 
+# 在菠萝包轻小说app里抓包后，可从请求头里获得cookie和devicetoken，userId需要抓包个人页面获得
 [sfacg]
 cookie = ""
 userId = ""
 devicetoken = ""
 
+# 在次元姬app里抓包后，可从请求头里获得
 [ciyuanji]
 token = ""
 deviceno = ""
 oaid = ""
 targetmodel = ""
 
+# 在绅士领域app里抓包签到后，可从请求体里获得
 [ssly]
 uid = ""
 
+# 抓包mt论坛网站获得
 [mt]
 cookie = ""
 
+# 在库街区app里抓包后，可从请求头里获得token和devCode，userId需要抓包我的页面获得
 [kurobbs]
 token = ""
 userId = ""
-devCode ""
+devCode =  ""
 
+# 抓包看雪论坛网站获得
 [kanxue]
 cookie = ""

@@ -141,7 +141,7 @@ export default async function main() {
         return 0;
     }
     let a = await sign();
-    if(a.status.httpCode === 200) {
+    if (a.status.httpCode === 200) {
         result += "\n    每日签到：已完成    ";
     } else {
         result += `\n    每日签到：${a.status.msg}    `;
