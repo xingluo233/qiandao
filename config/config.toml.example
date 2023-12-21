@@ -4,7 +4,7 @@ taskList = []
 # 在刺猬猫app里抓包后，可从请求体里获得
 [ciweimao]
 account = ""
-login_token = ""
+token = ""
 
 # 在菠萝包轻小说app里抓包后，可从请求头里获得cookie和devicetoken，userId需要抓包个人页面获得
 [sfacg]
@@ -32,6 +32,7 @@ cookie = ""
 token = ""
 userId = ""
 devCode =  ""
+model = ""
 
 # 抓包看雪论坛网站获得
 [kanxue]

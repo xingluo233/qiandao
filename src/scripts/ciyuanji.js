@@ -9,12 +9,12 @@ let targetmodel = config.ciyuanji.targetmodel;
 let version = "3.4.0";
 
 function encrypt(data) {
-    let key = CryptoJS.enc.Utf8.parse('ZUreQN0E')
+    let key = CryptoJS.enc.Utf8.parse('ZUreQN0E');
     let encrypted = CryptoJS.DES.encrypt(data, key, {
         mode: CryptoJS.mode.ECB,
         padding: CryptoJS.pad.Pkcs7
-    })
-    return encrypted.toString()
+    });
+    return encrypted.toString();
 }
 
 const headers = {
@@ -30,13 +30,13 @@ const headers = {
 }
 
 async function get(options) {
-    let timestamp = new Date().getTime()
-    let requestId = uuid()
+    let timestamp = new Date().getTime();
+    let requestId = uuid();
     let param = encrypt(JSON.stringify({
         ...options.data,
         timestamp: timestamp
-    }))
-    let sign = digest(base64Encode(`param=${param}&requestId=${requestId}&timestamp=${timestamp}&key=NpkTYvpvhJjEog8Y051gQDHmReY54z5t3F0zSd9QEFuxWGqfC8g8Y4GPuabq0KPdxArlji4dSnnHCARHnkqYBLu7iIw55ibTo18`), "md5").toUpperCase()
+    }));
+    let sign = digest(base64Encode(`param=${param}&requestId=${requestId}&timestamp=${timestamp}&key=NpkTYvpvhJjEog8Y051gQDHmReY54z5t3F0zSd9QEFuxWGqfC8g8Y4GPuabq0KPdxArlji4dSnnHCARHnkqYBLu7iIw55ibTo18`), "md5").toUpperCase();
     return await got({
         url: `https://api.hwnovel.com/api/ciyuanji/client/${options.url}`,
         method: "GET",
@@ -54,13 +54,13 @@ async function get(options) {
 }
 
 async function post(options) {
-    let timestamp = new Date().getTime()
-    let requestId = uuid()
+    let timestamp = new Date().getTime();
+    let requestId = uuid();
     let param = encrypt(JSON.stringify({
         ...options.data,
         timestamp: timestamp
-    }))
-    let sign = digest(base64Encode(`param=${param}&requestId=${requestId}&timestamp=${timestamp}&key=NpkTYvpvhJjEog8Y051gQDHmReY54z5t3F0zSd9QEFuxWGqfC8g8Y4GPuabq0KPdxArlji4dSnnHCARHnkqYBLu7iIw55ibTo18`), "md5").toUpperCase()
+    }));
+    let sign = digest(base64Encode(`param=${param}&requestId=${requestId}&timestamp=${timestamp}&key=NpkTYvpvhJjEog8Y051gQDHmReY54z5t3F0zSd9QEFuxWGqfC8g8Y4GPuabq0KPdxArlji4dSnnHCARHnkqYBLu7iIw55ibTo18`), "md5").toUpperCase();
     return await got({
         url: `https://api.hwnovel.com/api/ciyuanji/client/${options.url}`,
         method: "POST",

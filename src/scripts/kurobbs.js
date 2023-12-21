@@ -1,10 +1,10 @@
 import got from "got";
 import {base64Decode, sleep} from "../tools/utils.js";
 
-let token = config.kurobbs.token
-let userId = config.kurobbs.userId
-let devcode = config.kurobbs.devcode
-let model = config.kurobbs.model
+let token = config.kurobbs.token;
+let userId = config.kurobbs.userId;
+let devcode = config.kurobbs.devCode;
+let model = config.kurobbs.model;
 
 async function post(option) {
     return await got({
@@ -12,21 +12,21 @@ async function post(option) {
         method: "POST",
         form: option.data,
         headers: {
-            osversion: "Android",
-            devcode: devcode,
+            osVersion: "Android",
+            devCode: devcode,
             countryCode: "CN",
             ip: "",
             model: model,
             source: "android",
             lang: "zh-Hans",
-            version: "1.2.3",
-            versionCode: 1230,
+            version: "1.2.4",
+            versionCode: 1240,
             token: token,
             "User-Agent": "okhttp/3.10.0"
         },
         responseType: "json"
     }).then(res => {
-        return res.body
+        return res.body;
     })
 }
 
@@ -35,12 +35,13 @@ async function bbsList() {
     return await post({
         url: "forum/list",
         data: {
-            forumId: 10,
+            forumId: 9,
             gameId: 3,
             pageIndex: 1,
             pageSize: 20,
-            searchType: 1,
-            timeType: 0
+            searchType: 3,
+            timeType: 0,
+            topicId: 0
         }
     })
 }
@@ -107,28 +108,28 @@ async function task() {
 }
 
 export default async function main() {
-    let result = "【库街区】："
-    await bbsSign()
-    let bbslist = await bbsList()
+    let result = "【库街区】：";
+    await bbsSign();
+    let bbslist = await bbsList();
     for (let i = 1; i <= 5; i++) {
-        let random = Math.floor(Math.random() * 20)
-        let bbs = bbslist.data.postList[random]
-        await like(1, bbs)
-        await like(2, bbs)
+        let random = Math.floor(Math.random() * 15);
+        let bbs = bbslist.data.postList[random];
+        await like(1, bbs);
+        await like(2, bbs);
     }
-    await share()
+    await share();
     for (let j = 3; j <= 3; j++) {
-        let random = Math.floor(Math.random() * 20)
-        let bbs = bbslist.data.postList[random]
-        await getBbs(bbs)
-        await sleep(3000)
+        let random = Math.floor(Math.random() * 20);
+        let bbs = bbslist.data.postList[random];
+        await getBbs(bbs);
+        await sleep(3000);
     }
-    let taskList = await task()
+    let taskList = await task();
     for (let i of taskList.data.dailyTask) {
-        let taskName = i.remark
-        let status = i.completeTimes === i.needActionTimes ? "已完成" : "未完成"
-        result += `\n    ${taskName}：${status}`
+        let taskName = i.remark;
+        let status = i.completeTimes === i.needActionTimes ? "已完成" : "未完成";
+        result += `\n    ${taskName}：${status}`;
     }
-    console.log(result)
-    return result
+    console.log(result);
+    return result;
 }

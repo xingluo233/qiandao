@@ -4,7 +4,7 @@ import got from "got";
 let cookie = config.mt.cookie;
 
 export default async function main() {
-    let result = "【MT论坛】："
+    let result = "【MT论坛】：";
     if (!cookie) {
         console.log(`${result}请填写cookie`);
         return `${result}请填写cookie`;
@@ -27,7 +27,7 @@ export default async function main() {
             let $ = cheerio.load(res.body, {
                 xmlMode: true
             });
-            if ($("root").text() === "今日已签") result += "今天已经签过到了"
+            if ($("root").text() === "今日已签") result += "今天已经签过到了";
             else result += "签到成功";
             console.log(result);
             return result;

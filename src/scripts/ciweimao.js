@@ -5,14 +5,14 @@ import {sleep} from "../tools/utils.js";
 let account = config.ciweimao.account;
 let login_token = config.ciweimao.token;
 let device_token = "ciweimao_";
-let app_version = "2.9.316";
+let app_version = "2.9.318";
 
 function decrypt(data) {
-    let iv = Buffer.alloc(16, 0);
     let key = crypto.createHash('sha256').update('zG2nSeEfSHfvTCHy5LCcqtBbQehKNLXn').digest();
-    let cipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
-    let decrypted = cipher.update(data, 'base64', 'utf8');
-    decrypted += cipher.final('utf8');
+    let iv = Buffer.alloc(16, 0);
+    let decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+    let decrypted = decipher.update(data, 'base64', 'utf8');
+    decrypted += decipher.final('utf8');
     return decrypted;
 }
 
@@ -54,7 +54,7 @@ async function post(options) {
             login_token
         },
         headers: {
-            "user-agent": `Android  com.kuangxiangciweimao.novel  ${app_version},Xiaomi, Mi 13, 33, 13`
+            "user-agent": `Android  com.kuangxiangciweimao.novel  ${app_version},Xiaomi, Mi 14, 34, 14`
         }
     }).then(res => {
         return JSON.parse(decrypt(res.body)).data;
