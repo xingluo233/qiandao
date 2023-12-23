@@ -1,5 +1,5 @@
 import got from "got";
-import {base64Decode, sleep} from "../tools/utils.js";
+import {sleep} from "../tools/utils.js";
 
 let token = config.kurobbs.token;
 let userId = config.kurobbs.userId;
