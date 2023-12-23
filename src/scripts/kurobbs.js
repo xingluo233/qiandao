@@ -119,7 +119,7 @@ export default async function main() {
     }
     await share();
     for (let j = 3; j <= 3; j++) {
-        let random = Math.floor(Math.random() * 20);
+        let random = Math.floor(Math.random() * 15);
         let bbs = bbslist.data.postList[random];
         await getBbs(bbs);
         await sleep(3000);
