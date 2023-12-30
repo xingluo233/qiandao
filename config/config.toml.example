@@ -10,10 +10,6 @@ mediaid = ""
 [Push.telegram]
 tgbotoken = ""
 chatid = ""
-# 在刺猬猫app里抓包后，可从请求体里获得
-[ciweimao]
-account = ""
-token = ""
 
 # 在刺猬猫app里抓包后，可从请求体里获得
 [ciweimao]
