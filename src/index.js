@@ -2,10 +2,12 @@ import TOML from "@ltd/j-toml";
 import fs from "fs";
 import path from "path";
 import {fileURLToPath} from "url";
+import sendmsg from "../src/tools/sendmsg.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const args = process.argv.slice(2)
+let msg = ""
 
 function getArgumentsValues(args, flag) {
     let values = [];
@@ -57,7 +59,7 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    await res.default();
+                    msg += await res.default()+ "    \n\n";
                 }
             }
         }
@@ -90,11 +92,13 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    await res.default();
+                    msg += await res.default()+ "    \n\n";
                 }
             }
         }
     }
+ //   console.log(msg)
+    await sendmsg(msg,config.Push)
 }
 
 await main();

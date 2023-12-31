@@ -1,5 +1,15 @@
 # 任务列表，在这里填写脚本文件的名字，填写格式如 ["mt", "kanxue"]
 taskList = []
+# 推送参数
+[Push.qywx]
+corpsecret = ""
+corpid = ""
+agentid = ""
+mediaid = ""
+
+[Push.telegram]
+tgbotoken = ""
+chatid = ""
 
 # 在刺猬猫app里抓包后，可从请求体里获得
 [ciweimao]
