@@ -59,7 +59,7 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    msg += await res.default()+ "    \n";
+                    msg += await res.default() + "    \n";
                 }
             }
         }
@@ -71,7 +71,6 @@ async function main() {
                 files.push(fullPath);
             } else {
                 console.log(`【失败】：配置文件${item}不存在`);
-                continue;
             }
         }
         for (let fl of files) {
@@ -92,13 +91,12 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    msg += await res.default()+ "    \n";
+                    msg += await res.default() + "    \n";
                 }
             }
         }
     }
- //   console.log(msg)
-    await sendmsg(msg,config.Push)
+    await sendmsg(msg, config.Push)
 }
 
 await main();

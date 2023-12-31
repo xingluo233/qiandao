@@ -1,15 +1,16 @@
 import got from "got"
-var currentTime = new Date();
-var year = currentTime.getFullYear();
-var month = currentTime.getMonth() + 1;
-var day = currentTime.getDate();
-var formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+
+let currentTime = new Date();
+let year = currentTime.getFullYear();
+let month = currentTime.getMonth() + 1;
+let day = currentTime.getDate();
+let formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
 
 
 export default async function push(msg, token) {
-    if(token.qywx.corpsecret)await qywx(msg, token.qywx)
-    if(token.telegram.chatid)await tgpush(msg, token.telegram)
-    if(token.pushdeer.key)await pushdeer(msg,token.pushdeer)
+    if (token.qywx.corpsecret) await qywx(msg, token.qywx)
+    if (token.telegram.chatid) await tgpush(msg, token.telegram)
+    if (token.pushdeer.key) await pushdeer(msg, token.pushdeer)
 }
 
 function tgpush(msg, token) {
@@ -39,16 +40,17 @@ function pushdeer(msg, token) {
         try {
             let url = "https://api2.pushdeer.com/message/push"
             let body = {
-            pushkey: token.key ,
-            text: `落地成盒【${formattedDate}】`,
-            desp:msg.replace(/【|】/g, "*"),
-            type: "markdown"                               }            
-            let res = await got.post(url,{json:body });
-            let $ = JSON.parse(res.body)           
-            if ($.code==0) {
+                pushkey: token.key,
+                text: `落地成盒【${formattedDate}】`,
+                desp: msg.replace(/【|】/g, "*"),
+                type: "markdown"
+            }
+            let res = await got.post(url, {json: body});
+            let $ = JSON.parse(res.body)
+            if ($.code === 0) {
                 console.log("pushdeer：发送成功");
             } else {
-                console.log("Tg：发送失败!"+$.error);               
+                console.log("Tg：发送失败!" + $.error);
             }
         } catch (err) {
             console.log(err);
@@ -60,7 +62,7 @@ function pushdeer(msg, token) {
 function qywx(msg, token) {
     return new Promise(async (resolve) => {
         try {
-            let { corpsecret, corpid, agentid, mediaid } = token
+            let {corpsecret, corpid, agentid, mediaid} = token
             let url = `https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=${corpid}&corpsecret=${corpsecret}`
             let res = await got.get(url)
             let accdata = JSON.parse(res.body)
@@ -95,9 +97,9 @@ function qywx(msg, token) {
                 "safe": 0
             }
             let data = mediaid ? mpnews : text
-            let tres = await got.post(turl, { body: JSON.stringify(data) })
+            let tres = await got.post(turl, {body: JSON.stringify(data)})
             let tdata = JSON.parse(tres.body)
-            if (tdata.errcode == 0) {
+            if (tdata.errcode === 0) {
                 console.log("企业微信:发送成功");
             } else {
                 console.log("企业微信:发送失败");
