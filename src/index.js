@@ -59,7 +59,7 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    msg += await res.default()+ "    \n\n";
+                    msg += await res.default()+ "    \n";
                 }
             }
         }
@@ -92,7 +92,7 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    msg += await res.default()+ "    \n\n";
+                    msg += await res.default()+ "    \n";
                 }
             }
         }

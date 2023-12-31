@@ -6,11 +6,11 @@ corpsecret = ""
 corpid = ""
 agentid = ""
 mediaid = ""
-
 [Push.telegram]
 tgbotoken = ""
 chatid = ""
-
+[Push.pushdeer]
+key  = ""
 # 在刺猬猫app里抓包后，可从请求体里获得
 [ciweimao]
 account = ""

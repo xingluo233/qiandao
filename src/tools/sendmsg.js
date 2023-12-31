@@ -9,6 +9,7 @@ var formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' :
 export default async function push(msg, token) {
     if(token.qywx.corpsecret)await qywx(msg, token.qywx)
     if(token.telegram.chatid)await tgpush(msg, token.telegram)
+    if(token.pushdeer.key)await pushdeer(msg,token.pushdeer)
 }
 
 function tgpush(msg, token) {
@@ -32,6 +33,30 @@ function tgpush(msg, token) {
         resolve();
     });
 }
+
+function pushdeer(msg, token) {
+    return new Promise(async (resolve) => {
+        try {
+            let url = "https://api2.pushdeer.com/message/push"
+            let body = {
+            pushkey: token.key ,
+            text: `落地成盒【${formattedDate}】`,
+            desp:msg.replace(/【|】/g, "*"),
+            type: "markdown"                               }            
+            let res = await got.post(url,{json:body });
+            let $ = JSON.parse(res.body)           
+            if ($.code==0) {
+                console.log("pushdeer：发送成功");
+            } else {
+                console.log("Tg：发送失败!"+$.error);               
+            }
+        } catch (err) {
+            console.log(err);
+        }
+        resolve();
+    });
+}
+
 function qywx(msg, token) {
     return new Promise(async (resolve) => {
         try {
