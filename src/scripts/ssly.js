@@ -27,5 +27,6 @@ export default async function main() {
     } else {
         result += "签到失败,原因未知";
     }
+    console.log(result);
     return result;
 }

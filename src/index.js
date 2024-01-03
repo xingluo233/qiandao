@@ -42,7 +42,8 @@ async function main() {
             return 0;
         }
         for (let fl of files) {
-            msg += `正在运行${path.basename(fl)}\n`;
+            console.log(`正在运行${path.basename(fl)}`)
+            msg += `配置${path.basename(fl)}：\n`;
             global.config = TOML.parse(fs.readFileSync(fl));
             let taskList;
             if (getArgumentsValues(args, "-t").length !== 0) {
@@ -59,7 +60,7 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    msg += await res.default() + "\n";
+                    msg += await res.default() + "    \n";
                 }
             }
         }
@@ -74,7 +75,8 @@ async function main() {
             }
         }
         for (let fl of files) {
-            msg += `正在运行${path.basename(fl)}\n`;
+            console.log(`正在运行${path.basename(fl)}`)
+            msg += `配置${path.basename(fl)}：\n`;
             global.config = TOML.parse(fs.readFileSync(fl));
             let taskList;
             if (getArgumentsValues(args, "-t").length !== 0) {
@@ -91,7 +93,7 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    msg += await res.default() + "\n";
+                    msg += await res.default() + "    \n";
                 }
             }
         }
@@ -100,4 +102,4 @@ async function main() {
     return msg;
 }
 
-console.log(await main())
+await main()

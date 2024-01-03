@@ -130,5 +130,6 @@ export default async function main() {
         let status = i.completeTimes === i.needActionTimes ? "已完成" : "未完成";
         result += `\n    ${taskName}：${status}`;
     }
+    console.log(result);
     return result;
 }

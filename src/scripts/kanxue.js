@@ -32,5 +32,6 @@ export default async function main() {
     } else {
         result += `cookie已失效`;
     }
+    console.log(result);
     return result;
 }
