@@ -247,6 +247,5 @@ export default async function main() {
         let status = tasklist[i].is_finished === "1" ? "已完成" : "未完成";
         result += `\n    ${taskname}：${status}`;
     }
-    console.log(result);
     return result;
 }

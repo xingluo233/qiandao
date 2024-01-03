@@ -1,4 +1,4 @@
-import got from "got"
+import got from "got";
 
 let currentTime = new Date();
 let year = currentTime.getFullYear();
@@ -7,10 +7,25 @@ let day = currentTime.getDate();
 let formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
 
 
-export default async function push(msg, token) {
-    if (token.qywx.corpsecret) await qywx(msg, token.qywx)
-    if (token.telegram.chatid) await tgpush(msg, token.telegram)
-    if (token.pushdeer.key) await pushdeer(msg, token.pushdeer)
+export default async function push(msg) {
+    if (config.Push.qywx.corpsecret) await qywx(msg, config.Push.qywx);
+    if (config.Push.telegram.chatid) await tgpush(msg, config.Push.telegram);
+    if (config.Push.pushdeer.key) await pushdeer(msg, config.Push.pushdeer);
+    if (config.Push.ftqq.key) await ftqq(msg, config.Push.ftqq);
+}
+
+async function ftqq(msg) {
+    return await got({
+        url: `https://sctapi.ftqq.com/${config.Push.ftqq.key}.send`,
+        method: "post",
+        json: {
+            title: `【${formattedDate}】日签到`,
+            desp: msg
+        },
+        responseType: "json"
+    }).then(res => {
+        return res.body;
+    })
 }
 
 function tgpush(msg, token) {
@@ -35,28 +50,25 @@ function tgpush(msg, token) {
     });
 }
 
-function pushdeer(msg, token) {
-    return new Promise(async (resolve) => {
-        try {
-            let url = "https://api2.pushdeer.com/message/push"
-            let body = {
-                pushkey: token.key,
-                text: `落地成盒【${formattedDate}】`,
-                desp: msg.replace(/【|】/g, "*"),
-                type: "markdown"
-            }
-            let res = await got.post(url, {json: body});
-            let $ = JSON.parse(res.body)
-            if ($.code === 0) {
-                console.log("pushdeer：发送成功");
-            } else {
-                console.log("Tg：发送失败!" + $.error);
-            }
-        } catch (err) {
-            console.log(err);
+async function pushdeer(msg, token) {
+    try {
+        let url = "https://api2.pushdeer.com/message/push"
+        let body = {
+            pushkey: token.key,
+            text: `落地成盒【${formattedDate}】`,
+            desp: msg.replace(/[【】]/g, "*"),
+            type: "markdown"
         }
-        resolve();
-    });
+        let res = await got.post(url, {json: body});
+        let $ = JSON.parse(res.body)
+        if ($.code === 0) {
+            console.log("pushdeer：发送成功");
+        } else {
+            console.log("Tg：发送失败!" + $.error);
+        }
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 function qywx(msg, token) {

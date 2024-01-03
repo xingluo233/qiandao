@@ -7,7 +7,6 @@ import sendmsg from "../src/tools/sendmsg.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const args = process.argv.slice(2)
-let msg = ""
 
 function getArgumentsValues(args, flag) {
     let values = [];
@@ -26,6 +25,7 @@ function getArgumentsValues(args, flag) {
 }
 
 async function main() {
+    let msg = ""
     if (getArgumentsValues(args, "-c").length === 0) {
         let files = [];
         let items = fs.readdirSync(path.join(__dirname, "../config"));
@@ -42,7 +42,7 @@ async function main() {
             return 0;
         }
         for (let fl of files) {
-            console.log(`正在运行${path.basename(fl)}`);
+            msg += `正在运行${path.basename(fl)}\n`;
             global.config = TOML.parse(fs.readFileSync(fl));
             let taskList;
             if (getArgumentsValues(args, "-t").length !== 0) {
@@ -59,7 +59,7 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    msg += await res.default() + "    \n";
+                    msg += await res.default() + "\n";
                 }
             }
         }
@@ -74,7 +74,7 @@ async function main() {
             }
         }
         for (let fl of files) {
-            console.log(`正在运行${path.basename(fl)}`);
+            msg += `正在运行${path.basename(fl)}\n`;
             global.config = TOML.parse(fs.readFileSync(fl));
             let taskList;
             if (getArgumentsValues(args, "-t").length !== 0) {
@@ -91,12 +91,13 @@ async function main() {
                         continue;
                     }
                     let res = await import ("file://" + path.join(__dirname, `./scripts/${i}.js`));
-                    msg += await res.default() + "    \n";
+                    msg += await res.default() + "\n";
                 }
             }
         }
     }
-    await sendmsg(msg, config.Push)
+    await sendmsg(msg);
+    return msg;
 }
 
-await main();
+console.log(await main())

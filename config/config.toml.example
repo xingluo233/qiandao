@@ -11,7 +11,9 @@ mediaid = ""
 tgbotoken = ""
 chatid = ""
 [Push.pushdeer]
-key  = ""
+key = ""
+[Push.ftqq]
+key = ""
 
 # 在刺猬猫app里抓包后，可从请求体里获得
 [ciweimao]
@@ -30,6 +32,11 @@ token = ""
 deviceno = ""
 oaid = ""
 targetmodel = ""
+
+[bkneng]
+prikey = ""
+token = ""
+
 
 # 在绅士领域app里抓包签到后，可从请求体里获得
 [ssly]

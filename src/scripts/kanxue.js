@@ -28,8 +28,9 @@ export default async function main() {
             let $ = JSON.parse(res.body);
             if ($.code !== "0") result += $.message;
             else result += `签到成功，获得${$.message}个雪币`;
-            console.log(result);
-            return result;
         })
-    } else console.log(`${result}cookie已失效`);
+    } else {
+        result += `cookie已失效`;
+    }
+    return result;
 }

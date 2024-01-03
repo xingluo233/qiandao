@@ -29,8 +29,9 @@ export default async function main() {
             });
             if ($("root").text() === "今日已签") result += "今天已经签过到了";
             else result += "签到成功";
-            console.log(result);
-            return result;
         })
-    } else console.log(`${result}cookie已失效`);
+    } else {
+        result += `cookie已失效`;
+    }
+    return result;
 }
