@@ -33,10 +33,15 @@ deviceno = ""
 oaid = ""
 targetmodel = ""
 
+# 在不可能的世界APP里抓包登录可得
 [bkneng]
-prikey = ""
 token = ""
-
+username = ""
+n4 = ""
+n5 = ""
+device = ""
+aesKey = ""
+aesData = ""
 
 # 在绅士领域app里抓包签到后，可从请求体里获得
 [ssly]
