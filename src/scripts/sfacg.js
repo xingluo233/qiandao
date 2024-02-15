@@ -104,6 +104,19 @@ async function lqjl(id) {
     })
 }
 
+//看广告领代券
+async function ad() {
+    return await post({
+        url: `https://api.sfacg.com/user/tasks/21/advertisement?aid=43&deviceToken=${devicetoken}`,
+        method: "put",
+        data: {
+            num: 1
+        }
+    }).then(res => {
+        return res;
+    })
+}
+
 //天天分享
 async function share(userId) {
     return await post({
@@ -145,6 +158,10 @@ export default async function main() {
         result += "\n    每日签到：已完成    ";
     } else {
         result += `\n    每日签到：${a.status.msg}    `;
+    }
+    for (let i = 1; i <= 5; i++) {
+         await ad();
+         await lqjl(21);
     }
     let tasklist = await gettask();
     for (let i of tasklist) {
