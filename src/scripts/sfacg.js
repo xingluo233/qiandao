@@ -166,7 +166,7 @@ export default async function main() {
         result += `\n    每日签到：${a.status.msg}    `;
     }
     let adcs = await getad();
-    for (let i = 1; i <= 5 - adcs.completeNum; i++) {
+    for (let i = 1; i <= 5 - adcs[0].completeNum; i++) {
         await ad();
         await lqjl(21);
     }
