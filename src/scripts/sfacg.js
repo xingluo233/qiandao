@@ -29,7 +29,7 @@ async function get(url) {
         headers: {
             cookie: config.sfacg.cookie,
             authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
-            "user-agent": `boluobao/4.9.98(android;33)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao/4.9.98(android;34)/H5/${devicetoken}/H5`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
@@ -51,7 +51,7 @@ async function post(options) {
         headers: {
             cookie: config.sfacg.cookie,
             authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
-            "user-agent": `boluobao/4.9.98(android;33)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao/4.9.98(android;34)/H5/${devicetoken}/H5`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
@@ -166,7 +166,7 @@ export default async function main() {
         result += `\n    每日签到：${a.status.msg}    `;
     }
     let adcs = await getad();
-    for (let i = 1; i <= 5 - adcs[0].completeNum; i++) {
+    for (let i = 1; i <= adcs[0].requireNum - adcs[0].completeNum; i++) {
         await ad();
         await lqjl(21);
     }
