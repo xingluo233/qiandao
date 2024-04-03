@@ -5,6 +5,9 @@ let cookie = config.sfacg.cookie;
 let devicetoken = config.sfacg.devicetoken;
 let userId = config.sfacg.userId;
 
+const SALT = "FN_Q29XHVmfV3mYX"
+const  version = "5.0.38"
+
 function getNowFormatDate() {
     let date = new Date();
     let year = date.getFullYear();
@@ -22,14 +25,14 @@ function getNowFormatDate() {
 async function get(url) {
     let nonce = uuid().toUpperCase();
     let timestamp = Math.round(new Date().getTime()).toString();
-    let sign = digest(nonce + timestamp + devicetoken.toUpperCase() + "FMLxgOdsfxmN!Dt4", "md5").toUpperCase();
+    let sign = digest(nonce + timestamp + devicetoken.toUpperCase() + SALT, "md5").toUpperCase();
     return await got({
         url: url,
         method: "get",
         headers: {
             cookie: config.sfacg.cookie,
             authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
-            "user-agent": `boluobao/4.9.98(android;34)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/H5`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
@@ -43,7 +46,7 @@ async function get(url) {
 async function post(options) {
     let nonce = uuid().toUpperCase();
     let timestamp = Math.round(new Date().getTime()).toString();
-    let sign = digest(nonce + timestamp + devicetoken.toUpperCase() + "FMLxgOdsfxmN!Dt4", "md5").toUpperCase();
+    let sign = digest(nonce + timestamp + devicetoken.toUpperCase() + SALT, "md5").toUpperCase();
     return await got({
         url: options.url,
         method: options.method,
@@ -51,7 +54,7 @@ async function post(options) {
         headers: {
             cookie: config.sfacg.cookie,
             authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
-            "user-agent": `boluobao/4.9.98(android;34)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/H5`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
