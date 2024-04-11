@@ -5,7 +5,7 @@ import {sleep} from "../tools/utils.js";
 let account = config.ciweimao.account;
 let login_token = config.ciweimao.token;
 let device_token = "ciweimao_";
-let app_version = "2.9.319";
+let app_version = "2.9.322";
 
 function decrypt(data) {
     let key = crypto.createHash('sha256').update('zG2nSeEfSHfvTCHy5LCcqtBbQehKNLXn').digest();

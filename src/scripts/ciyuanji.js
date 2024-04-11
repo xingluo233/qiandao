@@ -6,7 +6,7 @@ let token = config.ciyuanji.token;
 let deviceno = config.ciyuanji.deviceno;
 let oaid = config.ciyuanji.oaid;
 let targetmodel = config.ciyuanji.targetmodel;
-let version = "3.4.1";
+let version = "3.4.2";
 
 function encrypt(data) {
     let key = CryptoJS.enc.Utf8.parse('ZUreQN0E');
