@@ -26,6 +26,12 @@ cookie = ""
 userId = ""
 devicetoken = ""
 
+# 在点鸭app里抓包后，可从请求头里获得cookie和devicetoken，userId需要抓包个人页面获得
+[dianya]
+cookie = ""
+userId = ""
+devicetoken = ""
+
 # 在次元姬app里抓包后，可从请求头里获得
 [ciyuanji]
 token = ""

@@ -1,12 +1,12 @@
 import got from "got";
 import {digest, uuid} from "../tools/utils.js";
 
-let cookie = config.sfacg.cookie;
-let devicetoken = config.sfacg.devicetoken;
-let userId = config.sfacg.userId;
+let cookie = config.dianya.cookie;
+let devicetoken = config.dianya.devicetoken;
+let userId = config.dianya.userId;
 
 const SALT = "FN_Q29XHVmfV3mYX"
-const version = "5.0.48"
+const  version = "5.0.48"
 
 function getNowFormatDate() {
     let date = new Date();
@@ -67,7 +67,7 @@ async function post(options) {
 
 //查询任务
 async function gettask() {
-    return await get(`https://api.sfacg.com/user/tasks?taskCategory=1&package=com.sfacg&deviceToken=${devicetoken}&page=0&size=20`).then(res => {
+    return await get(`https://api.sfacg.com/user/tasks?taskCategory=1&package=com.sfacg.chatnovel&deviceToken=${devicetoken}&page=0&size=20&packType=2&appType=boluobao_chatnovel`).then(res => {
         return res.data;
     })
 }
@@ -75,22 +75,11 @@ async function gettask() {
 //签到
 async function sign() {
     return await post({
-        url: "https://api.sfacg.com/user/newSignInfo",
+        url: "https://api.sfacg.com/user/newSignInfo?packType=2&appType=boluobao_chatnovel",
         method: "put",
         data: {
-            signDate: getNowFormatDate()
+            signDate: ""
         }
-    }).then(res => {
-        return res;
-    })
-}
-
-//领取任务
-async function lqrw(id) {
-    return await post({
-        url: `https://api.sfacg.com/user/tasks/${id}`,
-        method: "post",
-        data: {}
     }).then(res => {
         return res;
     })
@@ -99,7 +88,7 @@ async function lqrw(id) {
 //领取奖励
 async function lqjl(id) {
     return await post({
-        url: `https://api.sfacg.com/user/tasks/${id}`,
+        url: `https://api.sfacg.com/user/tasks/${id}?packType=2&appType=boluobao_chatnovel`,
         method: "put",
         data: {}
     }).then(res => {
@@ -108,7 +97,7 @@ async function lqjl(id) {
 }
 
 async function getad() {
-    return await get(`https://api.sfacg.com/user/tasks?taskCategory=5&package=com.sfacg&deviceToken=${devicetoken}&page=0&size=20`).then(res => {
+    return await get(`https://api.sfacg.com/user/tasks?taskCategory=5&package=com.sfacg&deviceToken=${devicetoken}&page=0&size=20&packType=2&appType=boluobao_chatnovel`).then(res => {
         return res.data;
     })
 }
@@ -116,7 +105,7 @@ async function getad() {
 //看广告领代券
 async function ad() {
     return await post({
-        url: `https://api.sfacg.com/user/tasks/21/advertisement?aid=43&deviceToken=${devicetoken}`,
+        url: `https://api.sfacg.com/user/tasks/72/advertisement?aid=43&deviceToken=${devicetoken}&packType=2&appType=boluobao_chatnovel`,
         method: "put",
         data: {
             num: 1
@@ -126,29 +115,16 @@ async function ad() {
     })
 }
 
-//天天分享
-async function share(userId) {
-    return await post({
-        url: `https://api.sfacg.com/user/tasks?taskId=4&userId=${userId}`,
-        method: "put",
-        data: {
-            env: 0
-        }
-    }).then(res => {
-        return res;
-    })
-}
-
 //阅读时长
 async function read(time) {
     return await post({
-        url: "https://api.sfacg.com/user/readingtime",
+        url: "https://api.sfacg.com/user/readingtime?packType=2&appType=boluobao_chatnovel",
         method: "put",
         data: {
             seconds: time,
-            entityType: 2,
-            chapterId: 4709238,
-            entityId: 368037,
+            entityType: 5,
+            chapterId: 7572591,
+            entityId: 635404,
             readingDate: getNowFormatDate()
         }
     }).then(res => {
@@ -157,7 +133,7 @@ async function read(time) {
 }
 
 export default async function main() {
-    let result = "【菠萝包轻小说】：";
+    let result = "【点鸭】：";
     if (!cookie || !devicetoken || !userId) {
         console.log(`${result}cookie,userId或devicetoken未填写`);
         return 0;
@@ -169,18 +145,12 @@ export default async function main() {
         result += `\n    每日签到：${a.status.msg}    `;
     }
     let adcs = await getad();
-    for (let i = 1; i <= adcs[0].requireNum - adcs[0].completeNum; i++) {
+    for (let i = 1; i <= 5; i++) {
         await ad();
-        await lqjl(21);
+        await lqjl(72);
     }
     let tasklist = await gettask();
-    for (let i of tasklist) {
-        if (i.status === 0) {
-            await lqrw(i.taskId);
-        }
-    }
-    await share(userId);
-    await read(9000);
+    await read(12000);
     tasklist = await gettask();
     for (let i of tasklist) {
         if (i.status === 1) {
