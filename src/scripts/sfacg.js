@@ -168,11 +168,6 @@ export default async function main() {
     } else {
         result += `\n    每日签到：${a.status.msg}    `;
     }
-    let adcs = await getad();
-    for (let i = 1; i <= adcs[0].requireNum - adcs[0].completeNum; i++) {
-        await ad();
-        await lqjl(21);
-    }
     let tasklist = await gettask();
     for (let i of tasklist) {
         if (i.status === 0) {
@@ -193,6 +188,11 @@ export default async function main() {
         let taskname = i.name;
         let status = i.status === 2 ? "已完成" : "未完成";
         result += `\n    ${taskname}：${status}`;
+    }
+    let adcs = await getad();
+    for (let i = 1; i <= adcs[0].requireNum - adcs[0].completeNum; i++) {
+        await ad();
+        await lqjl(21);
     }
     console.log(result);
     return result;
