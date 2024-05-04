@@ -30,7 +30,7 @@ async function get(url) {
         url: url,
         method: "get",
         headers: {
-            cookie: config.sfacg.cookie,
+            cookie: cookie,
             authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
             "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/H5`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
@@ -52,7 +52,7 @@ async function post(options) {
         method: options.method,
         json: options.data,
         headers: {
-            cookie: config.sfacg.cookie,
+            cookie: cookie,
             authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
             "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/H5`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`

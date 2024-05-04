@@ -3,10 +3,9 @@ import {digest, uuid} from "../tools/utils.js";
 
 let cookie = config.dianya.cookie;
 let devicetoken = config.dianya.devicetoken;
-let userId = config.dianya.userId;
 
-const SALT = "FN_Q29XHVmfV3mYX"
-const  version = "5.0.48"
+const SALT = "xw3#a12-x"
+const  version = "1.9.28"
 
 function getNowFormatDate() {
     let date = new Date();
@@ -30,9 +29,9 @@ async function get(url) {
         url: url,
         method: "get",
         headers: {
-            cookie: config.sfacg.cookie,
-            authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
-            "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/H5`,
+            cookie: cookie,
+            authorization: "Basic ZGlhbnlhdXNlcjpkZVBtM2MjcTRfQXQ=",
+            "user-agent": `boluobao_chatnovel/${version}(android;34)/H5/${devicetoken}/H5`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
@@ -52,9 +51,9 @@ async function post(options) {
         method: options.method,
         json: options.data,
         headers: {
-            cookie: config.sfacg.cookie,
-            authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
-            "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/H5`,
+            cookie: cookie,
+            authorization: "Basic ZGlhbnlhdXNlcjpkZVBtM2MjcTRfQXQ=",
+            "user-agent": `boluobao_chatnovel/${version}(android;34)/H5/${devicetoken}/H5`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
@@ -67,7 +66,7 @@ async function post(options) {
 
 //查询任务
 async function gettask() {
-    return await get(`https://api.sfacg.com/user/tasks?taskCategory=1&package=com.sfacg.chatnovel&deviceToken=${devicetoken}&page=0&size=20&packType=2&appType=boluobao_chatnovel`).then(res => {
+    return await get(`https://api.sfacg.com/user/tasks?taskCategory=1&package=com.sfacg.chatnovel&deviceToken=${devicetoken}&page=0&size=20`).then(res => {
         return res.data;
     })
 }
@@ -75,7 +74,7 @@ async function gettask() {
 //签到
 async function sign() {
     return await post({
-        url: "https://api.sfacg.com/user/newSignInfo?packType=2&appType=boluobao_chatnovel",
+        url: "https://api.sfacg.com/user/newSignInfo",
         method: "put",
         data: {
             signDate: ""
@@ -88,7 +87,7 @@ async function sign() {
 //领取奖励
 async function lqjl(id) {
     return await post({
-        url: `https://api.sfacg.com/user/tasks/${id}?packType=2&appType=boluobao_chatnovel`,
+        url: `https://api.sfacg.com/user/tasks/${id}`,
         method: "put",
         data: {}
     }).then(res => {
@@ -97,7 +96,7 @@ async function lqjl(id) {
 }
 
 async function getad() {
-    return await get(`https://api.sfacg.com/user/tasks?taskCategory=5&package=com.sfacg&deviceToken=${devicetoken}&page=0&size=20&packType=2&appType=boluobao_chatnovel`).then(res => {
+    return await get(`https://api.sfacg.com/user/tasks?taskCategory=5&package=com.sfacg&deviceToken=${devicetoken}&page=0&size=20`).then(res => {
         return res.data;
     })
 }
@@ -105,7 +104,7 @@ async function getad() {
 //看广告领代券
 async function ad() {
     return await post({
-        url: `https://api.sfacg.com/user/tasks/72/advertisement?aid=43&deviceToken=${devicetoken}&packType=2&appType=boluobao_chatnovel`,
+        url: `https://api.sfacg.com/user/tasks/72/advertisement?aid=43&deviceToken=${devicetoken}`,
         method: "put",
         data: {
             num: 1
@@ -118,13 +117,13 @@ async function ad() {
 //阅读时长
 async function read(time) {
     return await post({
-        url: "https://api.sfacg.com/user/readingtime?packType=2&appType=boluobao_chatnovel",
+        url: "https://api.sfacg.com/user/readingtime",
         method: "put",
         data: {
             seconds: time,
             entityType: 5,
-            chapterId: 7572591,
-            entityId: 635404,
+            chapterId: 8270934,
+            entityId: 688020,
             readingDate: getNowFormatDate()
         }
     }).then(res => {
@@ -134,8 +133,8 @@ async function read(time) {
 
 export default async function main() {
     let result = "【点鸭】：";
-    if (!cookie || !devicetoken || !userId) {
-        console.log(`${result}cookie,userId或devicetoken未填写`);
+    if (!cookie || !devicetoken) {
+        console.log(`${result}cookie或devicetoken未填写`);
         return 0;
     }
     let a = await sign();
@@ -149,9 +148,8 @@ export default async function main() {
         await ad();
         await lqjl(72);
     }
-    let tasklist = await gettask();
     await read(12000);
-    tasklist = await gettask();
+    let tasklist = await gettask();
     for (let i of tasklist) {
         if (i.status === 1) {
             await lqjl(i.taskId);
