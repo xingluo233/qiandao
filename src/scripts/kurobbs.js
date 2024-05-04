@@ -19,8 +19,8 @@ async function post(option) {
             model: model,
             source: "android",
             lang: "zh-Hans",
-            version: "2.0.0",
-            versionCode: 2000,
+            version: "2.1.1",
+            versionCode: 2110,
             token: token,
             "User-Agent": "okhttp/3.10.0"
         },

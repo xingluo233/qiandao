@@ -136,7 +136,7 @@ async function read(time) {
 }
 
 export default async function main() {
-    let result = "【菠萝包轻小说】：";
+    let result = "【菠萝包漫画】：";
     if (!cookie || !devicetoken || !userId) {
         console.log(`${result}cookie,userId或devicetoken未填写`);
         return 0;

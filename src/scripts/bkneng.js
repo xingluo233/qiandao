@@ -34,7 +34,7 @@ async function post(options) {
         method: "post",
         form: {
             n1: 100018,
-            n2: 10063,
+            n2: 10064,
             n3: 2,
             n4: n4,
             n5: n5,
@@ -63,7 +63,7 @@ async function get(options) {
         method: "get",
         searchParams: {
             n1: 100018,
-            n2: 10054,
+            n2: 10064,
             n3: 2,
             n4: n4,
             n5: n5,
