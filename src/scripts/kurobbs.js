@@ -116,11 +116,11 @@ export default async function main() {
     let bbslist = await bbsList();
     for (let i = 1; i <= 5; i++) {
         let random = Math.floor(Math.random() * bbslist.data.postList.length);
-        ls.push(random)
         if (ls.includes(random)) {
             i--;
             continue;
         }
+        ls.push(random);
         let bbs = bbslist.data.postList[random];
         await like(1, bbs);
         await like(2, bbs);
@@ -129,11 +129,11 @@ export default async function main() {
     ls = [];
     for (let j = 1; j <= 3; j++) {
         let random = Math.floor(Math.random() * bbslist.data.postList.length);
-        ls.push(random)
         if (ls.includes(random)) {
-            i--;
+            j--;
             continue;
         }
+        ls.push(random)
         let bbs = bbslist.data.postList[random];
         await getBbs(bbs);
         await sleep(3000);
