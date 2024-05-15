@@ -67,6 +67,7 @@ cookie = ""
 token = ""
 userId = ""
 devCode =  ""
+distinctId = ""
 model = ""
 
 # 抓包看雪论坛网站获得

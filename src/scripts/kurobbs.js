@@ -3,17 +3,19 @@ import {sleep} from "../tools/utils.js";
 
 let token = config.kurobbs.token;
 let userId = config.kurobbs.userId;
-let devcode = config.kurobbs.devCode;
+let devCode = config.kurobbs.devCode;
+let distinctId = config.kurobbs.distinctId
 let model = config.kurobbs.model;
 
 async function post(option) {
-    return await got({
+    return await got.post({
         url: `https://api.kurobbs.com/${option.url}`,
         method: "POST",
         form: option.data,
         headers: {
             osVersion: "Android",
-            devCode: devcode,
+            devCode: devCode,
+            distinct_id: distinctId,
             countryCode: "CN",
             ip: "",
             model: model,
@@ -22,7 +24,7 @@ async function post(option) {
             version: "2.1.1",
             versionCode: 2110,
             token: token,
-            "User-Agent": "okhttp/3.10.0"
+            "User-Agent": "okhttp/3.11.0"
         },
         responseType: "json"
     }).then(res => {
@@ -35,11 +37,11 @@ async function bbsList() {
     return await post({
         url: "forum/list",
         data: {
-            forumId: 9,
+            forumId: 10,
             gameId: 3,
             pageIndex: 1,
             pageSize: 20,
-            searchType: 3,
+            searchType: 1,
             timeType: 0,
             topicId: 0
         }
@@ -51,7 +53,7 @@ async function bbsSign() {
     return await post({
         url: "user/signIn",
         data: {
-            gameId: 3
+            gameId: 2
         }
     })
 }
@@ -110,16 +112,28 @@ async function task() {
 export default async function main() {
     let result = "【库街区】：";
     await bbsSign();
+    let ls = []
     let bbslist = await bbsList();
     for (let i = 1; i <= 5; i++) {
-        let random = Math.floor(Math.random() * 15);
+        let random = Math.floor(Math.random() * bbslist.data.postList.length);
+        ls.push(random)
+        if (ls.includes(random)) {
+            i--;
+            continue;
+        }
         let bbs = bbslist.data.postList[random];
         await like(1, bbs);
         await like(2, bbs);
     }
     await share();
-    for (let j = 3; j <= 3; j++) {
-        let random = Math.floor(Math.random() * 15);
+    ls = [];
+    for (let j = 1; j <= 3; j++) {
+        let random = Math.floor(Math.random() * bbslist.data.postList.length);
+        ls.push(random)
+        if (ls.includes(random)) {
+            i--;
+            continue;
+        }
         let bbs = bbslist.data.postList[random];
         await getBbs(bbs);
         await sleep(3000);
