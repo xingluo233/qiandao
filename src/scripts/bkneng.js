@@ -107,7 +107,7 @@ async function sign() {
     return await get({
         url: "user/out/welfare/checkIn",
         data: {
-            day: new Date().getDay()
+            day: new Date().getDay() === 0 ? 7 : new Date().getDay()
         }
     }).then((res) => {
         return res;
