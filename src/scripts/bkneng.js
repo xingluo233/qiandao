@@ -12,7 +12,6 @@ let n4 = config.bkneng.n4;
 let n5 = config.bkneng.n5;
 let n7 = config.bkneng.n7;
 let device = config.bkneng.device;
-let token = config.bkneng.token;
 let username = config.bkneng.username;
 
 let key = Buffer.from(crypto.publicDecrypt({
@@ -25,6 +24,8 @@ let decrypted = JSON.parse(decipher.update(aesData, 'base64', 'utf8') + decipher
 let userPriKey = `-----BEGIN PRIVATE KEY-----
 ${decrypted.userPriKey}
 -----END PRIVATE KEY-----`
+
+let token = decrypted.token;
 
 async function post(options) {
     let time = new Date().getTime();

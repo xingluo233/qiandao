@@ -46,7 +46,6 @@ targetmodel = ""
 
 # 在不可能的世界APP里抓包登录可得
 [bkneng]
-token = ""
 username = ""
 n4 = ""
 n5 = ""
