@@ -20,7 +20,6 @@ let key = Buffer.from(crypto.publicDecrypt({
     padding: crypto.constants.RSA_PKCS1_PADDING
 }, aesKey).toString(), "base64");
 
-
 let decipher = crypto.createDecipheriv('aes-128-cbc', key, key);
 let decrypted = JSON.parse(decipher.update(aesData, 'base64', 'utf8') + decipher.final('utf8'));
 let userPriKey = `-----BEGIN PRIVATE KEY-----
