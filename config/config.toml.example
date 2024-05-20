@@ -77,3 +77,8 @@ cookie = ""
 # AppShare 里抓包可得
 [appshare]
 token = ""
+
+# 长佩阅读app 里抓包可得
+[gongzicp]
+token = ""
+imei = ""
