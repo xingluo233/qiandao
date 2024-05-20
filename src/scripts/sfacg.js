@@ -22,13 +22,14 @@ function getNowFormatDate() {
     return year + "-" + month + "-" + Day;
 }
 
-async function get(url) {
+async function get(options) {
     let nonce = uuid().toUpperCase();
     let timestamp = Math.round(new Date().getTime()).toString();
     let sign = digest(nonce + timestamp + devicetoken.toUpperCase() + SALT, "md5").toUpperCase();
     return await got({
-        url: url,
+        url: `https://api.sfacg.com/${options.url}`,
         method: "get",
+        searchParams: options.data,
         headers: {
             cookie: cookie,
             authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
@@ -48,7 +49,7 @@ async function post(options) {
     let timestamp = Math.round(new Date().getTime()).toString();
     let sign = digest(nonce + timestamp + devicetoken.toUpperCase() + SALT, "md5").toUpperCase();
     return await got({
-        url: options.url,
+        url: `https://api.sfacg.com/${options.url}`,
         method: options.method,
         json: options.data,
         headers: {
@@ -67,7 +68,16 @@ async function post(options) {
 
 //查询任务
 async function gettask() {
-    return await get(`https://api.sfacg.com/user/tasks?taskCategory=1&package=com.sfacg&deviceToken=${devicetoken}&page=0&size=20`).then(res => {
+    return await get({
+        url: `user/tasks`,
+        data: {
+            taskCategory: 1,
+            package: "com.sfacg",
+            deviceToken: devicetoken,
+            page: 0,
+            size: 20
+        }
+    }).then(res => {
         return res.data;
     })
 }
@@ -75,7 +85,7 @@ async function gettask() {
 //签到
 async function sign() {
     return await post({
-        url: "https://api.sfacg.com/user/newSignInfo",
+        url: "user/newSignInfo",
         method: "put",
         data: {
             signDate: getNowFormatDate()
@@ -88,7 +98,7 @@ async function sign() {
 //领取任务
 async function lqrw(id) {
     return await post({
-        url: `https://api.sfacg.com/user/tasks/${id}`,
+        url: `user/tasks/${id}`,
         method: "post",
         data: {}
     }).then(res => {
@@ -99,7 +109,7 @@ async function lqrw(id) {
 //领取奖励
 async function lqjl(id) {
     return await post({
-        url: `https://api.sfacg.com/user/tasks/${id}`,
+        url: `user/tasks/${id}`,
         method: "put",
         data: {}
     }).then(res => {
@@ -108,7 +118,16 @@ async function lqjl(id) {
 }
 
 async function getad() {
-    return await get(`https://api.sfacg.com/user/tasks?taskCategory=5&package=com.sfacg&deviceToken=${devicetoken}&page=0&size=20`).then(res => {
+    return await get({
+        url: `user/tasks`,
+        data: {
+            taskCategory: 5,
+            package: "com.sfacg",
+            deviceToken: devicetoken,
+            page: 0,
+            size: 20
+        }
+    }).then(res => {
         return res.data;
     })
 }
@@ -116,7 +135,7 @@ async function getad() {
 //看广告领代券
 async function ad() {
     return await post({
-        url: `https://api.sfacg.com/user/tasks/21/advertisement?aid=43&deviceToken=${devicetoken}`,
+        url: `user/tasks/21/advertisement?aid=43&deviceToken=${devicetoken}`,
         method: "put",
         data: {
             num: 1
@@ -129,7 +148,7 @@ async function ad() {
 //天天分享
 async function share(userId) {
     return await post({
-        url: `https://api.sfacg.com/user/tasks?taskId=4&userId=${userId}`,
+        url: `user/tasks?taskId=4&userId=${userId}`,
         method: "put",
         data: {
             env: 0
@@ -142,7 +161,7 @@ async function share(userId) {
 //阅读时长
 async function read(time) {
     return await post({
-        url: "https://api.sfacg.com/user/readingtime",
+        url: "user/readingtime",
         method: "put",
         data: {
             seconds: time,
