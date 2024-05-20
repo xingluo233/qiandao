@@ -78,7 +78,7 @@ cookie = ""
 [appshare]
 token = ""
 
-# 长佩阅读app 里抓包可得
+# 长佩阅读app 里抓包可得，imei不需要填写，留空就行
 [gongzicp]
 token = ""
 imei = ""

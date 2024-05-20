@@ -22,7 +22,7 @@ function getNowFormatDate() {
     return year + "-" + month + "-" + Day;
 }
 
-async function get(url) {
+async function get(options) {
     let nonce = uuid().toUpperCase();
     let timestamp = Math.round(new Date().getTime()).toString();
     let sign = digest(nonce + timestamp + devicetoken.toUpperCase() + SALT, "md5").toUpperCase();
