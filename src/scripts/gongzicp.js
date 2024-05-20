@@ -1,6 +1,6 @@
 import got from "got";
-import {digest} from "../tools/utils.js";
 import crypto from "crypto";
+import {digest, sleep} from "../tools/utils.js";
 
 let token = config.gongzicp.token;
 let imei = config.gongzicp.imei;
@@ -55,7 +55,7 @@ function encrypt(data) {
 async function post(options) {
     let time = Math.floor(new Date().getTime() / 1000)
     let aesEncrypt = encrypt(imei)
-    let json = formatUrlMap(options.data, true, false)
+    let json = JSON.stringify(options.data)
     let headers
     if(options.version === "v3") {
         let nonce = time + (Math.floor(Math.random() * 10000)).toString()
@@ -188,11 +188,12 @@ export default async function main() {
         result += `\n    每日签到：${a.msg}    `;
     }
     let adcs = await getad();
-    for (let i = 1; i <= adcs.data[0].allowed_times - adcs.data[0].complrted_times; i++) {
+    for (let i = 1; i <= adcs.data[0].allowed_times - adcs.data[0].completed_times; i++) {
         await ad();
+        await sleep(3000);
     }
     adcs = await getad();
-    result += `\n    视频福利：剩余${adcs.data[0].allowed_times - adcs.data[0].complrted_timesn}次机会    `;
+    result += `\n    视频福利：剩余${adcs.data[0].allowed_times - adcs.data[0].completed_times}次机会    `;
     console.log(result);
     return result;
 }
