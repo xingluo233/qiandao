@@ -190,7 +190,7 @@ export default async function main() {
     let adcs = await getad();
     for (let i = 1; i <= adcs.data[0].allowed_times - adcs.data[0].completed_times; i++) {
         await ad();
-        await sleep(3000);
+        await sleep(5000);
     }
     adcs = await getad();
     result += `\n    视频福利：剩余${adcs.data[0].allowed_times - adcs.data[0].completed_times}次机会    `;
