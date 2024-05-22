@@ -73,7 +73,3 @@ model = ""
 # 抓包看雪论坛网站获得
 [kanxue]
 cookie = ""
-
-# AppShare 里抓包可得
-[appshare]
-token = ""
