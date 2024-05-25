@@ -32,7 +32,7 @@ async function get(options) {
         headers: {
             cookie: cookie,
             authorization: "Basic ZGlhbnlhdXNlcjpkZVBtM2MjcTRfQXQ=",
-            "user-agent": `boluobao_chatnovel/${version}(android;34)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao_chatnovel/${version}(android;34)/H5/${devicetoken}/Google`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
@@ -54,7 +54,7 @@ async function post(options) {
         headers: {
             cookie: cookie,
             authorization: "Basic ZGlhbnlhdXNlcjpkZVBtM2MjcTRfQXQ=",
-            "user-agent": `boluobao_chatnovel/${version}(android;34)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao_chatnovel/${version}(android;34)/H5/${devicetoken}/Google`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"

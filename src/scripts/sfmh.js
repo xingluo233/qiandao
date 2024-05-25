@@ -6,7 +6,7 @@ let devicetoken = config.sfmh.devicetoken;
 let userId = config.sfmh.userId;
 
 const SALT = "xw3#a12-x"
-const version = "1.5.18"
+const version = "1.5.20"
 
 function getNowFormatDate() {
     let date = new Date();
@@ -33,7 +33,7 @@ async function get(options) {
         headers: {
             cookie: cookie,
             authorization: "Basic Y29taWN1c2VyOmczQGYsRGo1dnJ3c1o=",
-            "user-agent": `boluobao_comic/${version}(android;34)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao_comic/${version}(android;34)/H5/${devicetoken}/Google`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
@@ -55,7 +55,7 @@ async function post(options) {
         headers: {
             cookie: cookie,
             authorization: "Basic Y29taWN1c2VyOmczQGYsRGo1dnJ3c1o=",
-            "user-agent": `boluobao_comic/${version}(android;34)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao_comic/${version}(android;34)/H5/${devicetoken}/Google`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"

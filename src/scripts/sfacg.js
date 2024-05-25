@@ -6,7 +6,7 @@ let devicetoken = config.sfacg.devicetoken;
 let userId = config.sfacg.userId;
 
 const SALT = "FN_Q29XHVmfV3mYX"
-const version = "5.0.52"
+const version = "5.0.60"
 
 function getNowFormatDate() {
     let date = new Date();
@@ -33,7 +33,7 @@ async function get(options) {
         headers: {
             cookie: cookie,
             authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
-            "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/Google`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
@@ -55,7 +55,7 @@ async function post(options) {
         headers: {
             cookie: cookie,
             authorization: "Basic YW5kcm9pZHVzZXI6MWEjJDUxLXl0Njk7KkFjdkBxeHE=",
-            "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/H5`,
+            "user-agent": `boluobao/${version}(android;34)/H5/${devicetoken}/Google`,
             "sfsecurity": `nonce=${nonce}&timestamp=${timestamp}&devicetoken=${devicetoken.toUpperCase()}&sign=${sign}`
         },
         responseType: "json"
