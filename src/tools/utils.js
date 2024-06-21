@@ -1,11 +1,11 @@
 import crypto from "crypto";
 
-export function digest(data, type) {
-    return crypto.createHash(type).update(data, 'utf8').digest('hex');
+export function digest(data, type, encoding = "hex") {
+    return crypto.createHash(type).update(data, 'utf8').digest(encoding);
 }
 
-export function hmac(data, key, type) {
-    return crypto.createHmac(type, key).update(data, 'utf8').digest('hex');
+export function hmac(data, key, type, encoding = "hex") {
+    return crypto.createHmac(type, key).update(data, 'utf8').digest(encoding);
 }
 
 export function base64Encode(data) {

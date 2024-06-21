@@ -6,7 +6,7 @@ let devicetoken = config.sfacg.devicetoken;
 let userId = config.sfacg.userId;
 
 const SALT = "FN_Q29XHVmfV3mYX"
-const version = "5.0.60"
+const version = "5.0.64"
 
 function getNowFormatDate() {
     let date = new Date();

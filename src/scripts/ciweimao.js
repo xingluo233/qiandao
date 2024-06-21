@@ -1,11 +1,14 @@
 import got from "got";
 import crypto from "crypto";
-import {sleep} from "../tools/utils.js";
+import {sleep, hmac} from "../tools/utils.js";
 
-let account = config.ciweimao.account;
+let account = encodeURIComponent(config.ciweimao.account);
 let login_token = config.ciweimao.token;
 let device_token = "ciweimao_";
-let app_version = "2.9.319";
+let app_version = "2.9.328";
+
+let hmacKey = "a90f3731745f1c30ee77cb13fc00005a";
+let signKey = "CkMxWNB666";
 
 function decrypt(data) {
     let key = crypto.createHash('sha256').update('zG2nSeEfSHfvTCHy5LCcqtBbQehKNLXn').digest();
@@ -43,15 +46,24 @@ function getNowFormatDate() {
 }
 
 async function post(options) {
+    let rand_str = crypto.randomBytes(16).toString("hex");
+    let p = encodeURIComponent(hmac(decodeURIComponent(new URLSearchParams(({
+        account: account,
+        app_version: app_version,
+        rand_str: rand_str,
+        signatures: hmacKey + signKey,
+    })).toString()), hmacKey, "sha256", "base64"));
     return await got({
         url: `https://app.happybooker.cn/${options.url}`,
         method: "POST",
         form: {
-            ...options.data,
+            account,
             app_version,
             device_token,
-            account,
-            login_token
+            login_token,
+            ...options.data,
+            rand_str: rand_str,
+            p: p
         },
         headers: {
             "user-agent": `Android  com.kuangxiangciweimao.novel  ${app_version},Xiaomi, Mi 14, 34, 14`
