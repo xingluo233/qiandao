@@ -20,23 +20,6 @@ key = ""
 account = ""
 token = ""
 
-# 在菠萝包轻小说app里抓包后，可从请求头里获得cookie和devicetoken，userId需要抓包个人页面获得
-[sfacg]
-cookie = ""
-userId = ""
-devicetoken = ""
-
-# 在菠萝包漫画app里抓包后，可从请求头里获得cookie和devicetoken，userId需要抓包个人页面获得
-[sfmh]
-cookie = ""
-userId = ""
-devicetoken = ""
-
-# 在点鸭app里抓包后，可从请求头里获得cookie和devicetoken
-[dianya]
-cookie = ""
-devicetoken = ""
-
 # 在次元姬app里抓包后，可从请求头里获得
 [ciyuanji]
 token = ""
