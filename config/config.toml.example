@@ -15,10 +15,11 @@ key = ""
 [Push.ftqq]
 key = ""
 
-# 在刺猬猫app里抓包后，可从请求体里获得
+# 在刺猬猫app里抓包后，可从请求体里获得，ua需要从请求头里获得
 [ciweimao]
 account = ""
 token = ""
+ua = ""
 
 # 在次元姬app里抓包后，可从请求头里获得
 [ciyuanji]

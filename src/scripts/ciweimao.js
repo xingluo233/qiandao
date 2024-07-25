@@ -4,6 +4,7 @@ import {sleep, hmac} from "../tools/utils.js";
 
 let account = encodeURIComponent(config.ciweimao.account);
 let login_token = config.ciweimao.token;
+let ua = config.ciweimao.ua.split(",");
 let device_token = "ciweimao_";
 let app_version = "2.9.328";
 
@@ -66,7 +67,7 @@ async function post(options) {
             p: p
         },
         headers: {
-            "user-agent": `Android  com.kuangxiangciweimao.novel  ${app_version},Xiaomi, Mi 14, 34, 14`
+            "user-agent": `Android  com.kuangxiangciweimao.novel  ${app_version},${ua[1]},${ua[2]},${ua[3]},${ua[4]}`
         }
     }).then(res => {
         return JSON.parse(decrypt(res.body)).data;
