@@ -6,7 +6,7 @@ let account = encodeURIComponent(config.ciweimao.account);
 let login_token = config.ciweimao.token;
 let ua = config.ciweimao.ua.split(",");
 let device_token = "ciweimao_";
-let app_version = "2.9.328";
+let app_version = "2.9.329";
 
 let hmacKey = "a90f3731745f1c30ee77cb13fc00005a";
 let signKey = "CkMxWNB666";
