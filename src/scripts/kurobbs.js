@@ -8,7 +8,7 @@ let distinctId = config.kurobbs.distinctId
 let model = config.kurobbs.model;
 
 async function post(option) {
-    return await got.post({
+    return await got({
         url: `https://api.kurobbs.com/${option.url}`,
         method: "POST",
         form: option.data,

@@ -11,7 +11,7 @@ export default async function main() {
     }
     let response = await got.get("https://bbs.binmt.cc/k_misign-sign.html", {
         headers: {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.54",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/116.0.1938.54",
             cookie: cookie
         }
     });
@@ -20,7 +20,7 @@ export default async function main() {
         let formhash = $("[name=formhash]").attr("value");
         await got.get(`https://bbs.binmt.cc/plugin.php?id=k_misign:sign&operation=qiandao&formhash=${formhash}&format=empty&inajax=1&ajaxtarget=`, {
             headers: {
-                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.54",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/116.0.1938.54",
                 cookie: cookie
             }
         }).then(res => {

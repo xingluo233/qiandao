@@ -11,17 +11,18 @@ export default async function main() {
     }
     let response = await got.get("https://bbs.kanxue.com/", {
         headers: {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.54",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.1938.54",
             cookie: cookie
         }
     });
     let $ = cheerio.load(response.body);
     if ($("a.login_btn").text() !== "登录") {
         let csrftoken = $("[name=csrf-token]").attr("content");
-        await got.post("https://bbs.kanxue.com/user-signin.htm", {
+        await got("https://bbs.kanxue.com/user-signin.htm", {
+            method: "POST",
             body: `csrf_token=${csrftoken}`,
             headers: {
-                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.54",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/116.0.1938.54",
                 cookie: cookie
             }
         }).then(res => {
