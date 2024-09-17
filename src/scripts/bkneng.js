@@ -1,5 +1,5 @@
 import got from "got";
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 let publicKey = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQClTsX4wJRr7xW7EKVUtSUg/K1frM2UGUOUya6MQCXwl+hHXxyqnf03lPKOdF2tTKARGoFVuy1EDLHca47rrnxt4SgtupzWy6W3sAda3Em5akn2onPkkUmPynnQD7ORW7N77frZ+cMX3eKhSx5njfiftD2CWy6bYD57fXY8NXSCSQIDAQAB

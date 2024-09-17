@@ -1,5 +1,5 @@
 import got from "got";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import {sleep, hmac} from "../tools/utils.js";
 
 let account = encodeURIComponent(config.ciweimao.account);

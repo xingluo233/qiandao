@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 export function digest(data, type, encoding = "hex") {
     return crypto.createHash(type).update(data, 'utf8').digest(encoding);
