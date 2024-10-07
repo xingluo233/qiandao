@@ -5,3 +5,4 @@ package-lock.json
 .vscode
 config/*
 !config/config.toml.example
+!config/README.md
