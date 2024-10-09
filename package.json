@@ -11,8 +11,8 @@
   "type": "module",
   "dependencies": {
     "@ltd/j-toml": "^1.38.0",
-    "cheerio": "^1.0.0-rc.12",
+    "cheerio": "^1.0.0",
     "crypto-js": "^4.2.0",
-    "got": "^14.4.2"
+    "got": "^14.4.3"
   }
 }
