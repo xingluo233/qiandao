@@ -12,7 +12,7 @@ export default async function main() {
     let timestamp = Math.round(new Date() / 1000).toString();
     let mac = digest(digest(digest(timestamp, "md5"), "sha1"), "md5");
     let data = `time=${timestamp}&mac=${mac}&u_id=${uid}`;
-    let response = await got(`https://sslyapp.site/mz_pbl/app_con/add_sign.php`, {
+    let response = await got(`https://down.sslyhome.top/mz_pbl/app_con/add_sign.php`, {
         body: data,
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
