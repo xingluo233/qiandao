@@ -56,3 +56,7 @@ model = ""
 # 抓包看雪论坛网站获得
 [kanxue]
 cookie = ""
+
+# 抓包弥弥尔频道网站获得
+[ys4fun]
+authorization = ""
